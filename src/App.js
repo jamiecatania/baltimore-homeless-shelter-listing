@@ -13,8 +13,9 @@ class App extends Component {
     this.state = {
       shelterData: [],
       filteredData: [],
+      currentlySelectedShelter: '',
       activeFilter: 'all',
-      isDataLoaded: false
+      isDataLoaded: false    
     }
   }
 
@@ -41,7 +42,7 @@ class App extends Component {
         </Navbar>
         <Grid>
           <Col sm={12}>
-            <FilterNav activeFilter={activeFilter} onChange={function (eventKey) {
+            <FilterNav activeFilter={activeFilter} activeKey={that.state.activeFilter} onChange={function (eventKey) {
               const tempFilterData = eventKey === 'all' ? that.state.shelterData : that.state.shelterData.filter(el => {
                 return el[eventKey] === "1";
               })
@@ -50,7 +51,13 @@ class App extends Component {
           </Col>
           <Row>
             <Col xs={12} md={4}>
-              <FilteredShelterList filteredShelters={this.state.filteredData} />
+              <FilteredShelterList 
+                filteredShelters={this.state.filteredData}
+                currentlySelectedShelter={this.state.currentlySelectedShelter} 
+                selectShelter={function (address) {
+                  that.setState({ currentlySelectedShelter: address });
+                }}
+              />
             </Col>
             <Col xs={12} md={8}>
               <MapContainer google={this.props.google} filteredShelters={this.state.filteredData} />

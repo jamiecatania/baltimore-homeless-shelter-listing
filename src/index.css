@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.filter-nav {
+  /* padding-bottom: 10px; */
+  display: inline-block;
+}
+
+.filter-label {
+  display: inline-block;
+  position: relative;
+  padding-right: 10px;
+}
+
+.filtered-item a {
+  color: white;
+}

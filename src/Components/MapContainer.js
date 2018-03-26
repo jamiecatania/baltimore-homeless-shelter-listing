@@ -24,7 +24,6 @@ export default class MapContainer extends Component {
             // Create the map and attach to node
             this.map = new maps.Map(node, mapConfig);
 
-            console.log(this.props.filteredShelters);
             // Create markers for each item in filteredShelters prop
             this.props.filteredShelters.forEach(location => {
                 const marker = new maps.Marker({
