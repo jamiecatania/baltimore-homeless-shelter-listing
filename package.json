@@ -1,16 +1,20 @@
 {
   "name": "baltimore-homeless-services",
+  "homepage": "https://jamiecatania.github.io/baltimore-homeless-shelter-listing",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "gh-pages": "^1.1.0",
     "google-maps-react": "^1.1.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13"
+    "react-scripts": "2.0.0-next.b2fd8db8"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -18,5 +22,18 @@
   },
   "devDependencies": {
     "google-maps": "^3.2.1"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
   }
 }
