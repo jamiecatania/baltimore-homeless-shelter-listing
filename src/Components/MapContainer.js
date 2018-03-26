@@ -1,53 +1,50 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+
 
 export default class MapContainer extends Component {
 
-    componentDidUpdate() {
-        this.loadMap();
-    }
-
-    loadMap() {
-        if (this.props && this.props.google) {
-            const { google } = this.props;
-            const maps = google.maps;
-
-            const mapRef = this.refs.map;
-            const node = ReactDOM.findDOMNode(mapRef);
-
-            const mapConfig = Object.assign({}, {
-                center: { lat: this.props.center.lat, lng: this.props.center.lng },
-                zoom: this.props.zoom,
-                mapTypeId: this.props.type
-            })
-
-            // Create the map and attach to node
-            this.map = new maps.Map(node, mapConfig);
-
-            // Create markers for each item in filteredShelters prop
-            this.props.filteredShelters.forEach(location => {
-                const marker = new maps.Marker({
-                    position: { lat: location.location_1.coordinates[1], lng: location.location_1.coordinates[0] },
-                    map: this.map,
-                    title: location.organization
-                });
-            })
-        }
-    }
-
-    render() {
+    render() {      
         const style = {
             width: '100%',
-            height: '75vh',
-            margin: 'auto'
-        }
+            height: '75vh'
+        };
 
         return (
-            <div ref="map" style={style}>
-                loading map...
-            </div>
-        )
+            <Map
+                google={this.props.google}
+                zoom={this.props.zoom}
+                style={style}
+                initialCenter={this.props.center}
+            >
+                {this.props.filteredShelters.map((place, index) => {
+                    return (
+                        <Marker
+                            onClick={() => this.props.selectShelter(place.location_1_address)}                            
+                            title={place.organization}
+                            position={{ lat: place.location_1.coordinates[1], lng: place.location_1.coordinates[0] }}
+                            key={index}
+                        />
+
+                        /* <InfoWindow onClose={this.onInfoWindowClose}>
+                            <div>
+                                <h1>{place.phone}</h1>
+                            </div>
+                        </InfoWindow> */
+                    );
+                }
+                )}
+            </Map>
+        );
     }
+}
+
+MapContainer.PropTypes = {
+    filteredShelterList: PropTypes.array.isRequired,
+    currentlySelectedShelter: PropTypes.string.isRequired,
+    google: PropTypes.Object,
+    selectShelter: PropTypes.function
 }
 
 //Config map to Baltimore
@@ -55,10 +52,7 @@ MapContainer.defaultProps = {
     center: { lat: 39.2904, lng: -76.6122 },
     zoom: 13,
     type: 'roadmap',
-    filteredShelters: []
-}
-
-MapContainer.PropTypes = {
-    filteredShelters: PropTypes.array.isRequired,
-    google: PropTypes.Object
+    selectShelter: function (index) {
+        alert(`Selected ${index}`);
+    }
 }

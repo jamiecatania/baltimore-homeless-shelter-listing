@@ -7,8 +7,6 @@ export default class FilteredShelterList extends Component {
 
     render() {
         const currentlySelectedShelter = this.props.currentlySelectedShelter;
-        console.log(currentlySelectedShelter);
-
 
         return (
             <div>

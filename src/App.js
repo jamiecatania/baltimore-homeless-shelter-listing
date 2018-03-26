@@ -14,6 +14,7 @@ class App extends Component {
       shelterData: [],
       filteredData: [],
       currentlySelectedShelter: '',
+      currentlySelectedIndex: null,
       activeFilter: 'all',
       isDataLoaded: false    
     }
@@ -53,14 +54,35 @@ class App extends Component {
             <Col xs={12} md={4}>
               <FilteredShelterList 
                 filteredShelters={this.state.filteredData}
-                currentlySelectedShelter={this.state.currentlySelectedShelter} 
+                currentlySelectedShelter={this.state.currentlySelectedShelter}
                 selectShelter={function (address) {
                   that.setState({ currentlySelectedShelter: address });
-                }}
+                }} 
+                // selectShelter={function (index, address) {
+                //   let tempData = that.state.filteredData;
+                //   let shuffledFilteredData = tempData.slice(index, index + 1);
+                //   tempData.splice(index, 1);
+                //   shuffledFilteredData.push(...tempData);
+                //   that.setState({ currentlySelectedShelter: address, currentlySelectedIndex: index, filteredData: shuffledFilteredData });
+                // }}
               />
             </Col>
             <Col xs={12} md={8}>
-              <MapContainer google={this.props.google} filteredShelters={this.state.filteredData} />
+              <MapContainer 
+                google={this.props.google}
+                currentlySelectedShelter={this.state.currentlySelectedShelter} 
+                filteredShelters={this.state.filteredData}
+                selectShelter={function (address) {
+                  that.setState({ currentlySelectedShelter: address });
+                }}
+                // selectShelter={function (index, address) {
+                //   let tempData = that.state.filteredData;
+                //   let shuffledFilteredData = tempData.slice(index, index + 1);
+                //   tempData.splice(index, 1);
+                //   shuffledFilteredData.push(...tempData);
+                //   that.setState({ currentlySelectedShelter: address, currentlySelectedIndex: index, filteredData: shuffledFilteredData });
+                // }} 
+                />
             </Col>
           </Row>
         </Grid>
