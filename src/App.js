@@ -5,12 +5,13 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import MapContainer from './Components/MapContainer';
 import FilteredShelterList from './Components/FilteredShelterList';
 import FilterNav from './Components/FilterNav';
+import shelter_black from './assets/shelter_black-01.png';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       shelterData: [],
       filteredData: [],
@@ -38,7 +39,10 @@ class App extends Component {
       <div>
         <Navbar>
           <Navbar.Header>
-            <h1>Baltimore Homeless Shelter Listings</h1>
+            <h1 className='site-brand'>
+              <img className='site-logo' src={shelter_black} />
+              Baltimore Homeless Shelter Listings
+            </h1>
           </Navbar.Header>
         </Navbar>
         <Grid>

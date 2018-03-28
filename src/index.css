@@ -24,3 +24,13 @@ body {
 .filtered-item a {
   color: white;
 }
+
+.site-brand {
+  color: white;
+}
+
+.site-logo {
+  max-height: 30px;
+  margin-right: 10px;
+  vertical-align: baseline;
+}
