@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-
 export default class MapContainer extends Component {
 
     render() {
@@ -10,6 +9,9 @@ export default class MapContainer extends Component {
             width: '100%',
             height: '75vh'
         };
+
+        let iconUrl = 'https://png.icons8.com/android/50/000000/tent.png';
+        const currentlySelectedShelter = this.props.currentlySelectedShelter;
 
         return (
             <Map
@@ -19,13 +21,23 @@ export default class MapContainer extends Component {
                 initialCenter={this.props.center}
             >
                 {this.props.filteredShelters.map((place, index) => {
-                    {/* TODO: Update marker styling when active */ }
+                    // Change sytling of icon on render if it's the currently selected shelter
+                    if (currentlySelectedShelter === place.location_1_address) {
+                        iconUrl = 'https://png.icons8.com/android/50/2980b9/tent.png';
+                    } else {
+                        iconUrl = 'https://png.icons8.com/android/50/000000/tent.png';
+                    }
                     return (
                         <Marker
                             onClick={() => this.props.selectShelter(place.location_1_address)}
                             title={place.organization}
                             position={{ lat: place.location_1.coordinates[1], lng: place.location_1.coordinates[0] }}
                             key={index}
+                            icon={{
+                                url: iconUrl,
+                                anchor: new this.props.google.maps.Point(10, 10),
+                                scaledSize: new this.props.google.maps.Size(30, 30)
+                            }}
                         />
                     );
                 }
