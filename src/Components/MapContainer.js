@@ -5,7 +5,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 export default class MapContainer extends Component {
 
-    render() {      
+    render() {
         const style = {
             width: '100%',
             height: '75vh'
@@ -19,19 +19,14 @@ export default class MapContainer extends Component {
                 initialCenter={this.props.center}
             >
                 {this.props.filteredShelters.map((place, index) => {
+                    {/* TODO: Update marker styling when active */ }
                     return (
                         <Marker
-                            onClick={() => this.props.selectShelter(place.location_1_address)}                            
+                            onClick={() => this.props.selectShelter(place.location_1_address)}
                             title={place.organization}
                             position={{ lat: place.location_1.coordinates[1], lng: place.location_1.coordinates[0] }}
                             key={index}
                         />
-
-                        /* <InfoWindow onClose={this.onInfoWindowClose}>
-                            <div>
-                                <h1>{place.phone}</h1>
-                            </div>
-                        </InfoWindow> */
                     );
                 }
                 )}

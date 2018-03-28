@@ -11,7 +11,10 @@ export default class FilteredShelterList extends Component {
         return (
             <div>
                 <ListGroup>
+                   {/* Create a ListGroupItem for each location in the dataset */} 
                     {this.props.filteredShelters.map((place, index) => {
+                        
+                        {/* Add detailed information if the ListGroupItem is actively selected */} 
                         if (currentlySelectedShelter === place.location_1_address) {
                             return (
                                 <ListGroupItem

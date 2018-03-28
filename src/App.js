@@ -8,18 +8,20 @@ import FilterNav from './Components/FilterNav';
 
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    
     this.state = {
       shelterData: [],
       filteredData: [],
       currentlySelectedShelter: '',
       currentlySelectedIndex: null,
       activeFilter: 'all',
-      isDataLoaded: false    
+      isDataLoaded: false
     }
   }
 
+  //Fetches the raw data set just before the App Component mounts to the DOM.
   componentWillMount() {
     //Fetch the dataset from https://data.baltimorecity.gov/Health/Homeless-Services/uukz-aw5g via Socrata Open Data API (SODA).
     const URL = "https://data.baltimorecity.gov/resource/4adc-a5y9.json";
@@ -29,16 +31,14 @@ class App extends Component {
   }
 
   render() {
-    var that = this;
-    const activeFilter = this.state.activeFilter;
+    const that = this; // Explicitly declaring the meaning of 'this'
+    const activeFilter = that.state.activeFilter;
 
     return (
       <div>
         <Navbar>
           <Navbar.Header>
-            <Navbar.Brand>
-              <h1>Baltimore Homeless Shelter Listings</h1>
-            </Navbar.Brand>
+            <h1>Baltimore Homeless Shelter Listings</h1>
           </Navbar.Header>
         </Navbar>
         <Grid>
@@ -52,37 +52,23 @@ class App extends Component {
           </Col>
           <Row>
             <Col xs={12} md={4}>
-              <FilteredShelterList 
-                filteredShelters={this.state.filteredData}
-                currentlySelectedShelter={this.state.currentlySelectedShelter}
-                selectShelter={function (address) {
-                  that.setState({ currentlySelectedShelter: address });
-                }} 
-                // selectShelter={function (index, address) {
-                //   let tempData = that.state.filteredData;
-                //   let shuffledFilteredData = tempData.slice(index, index + 1);
-                //   tempData.splice(index, 1);
-                //   shuffledFilteredData.push(...tempData);
-                //   that.setState({ currentlySelectedShelter: address, currentlySelectedIndex: index, filteredData: shuffledFilteredData });
-                // }}
-              />
-            </Col>
-            <Col xs={12} md={8}>
-              <MapContainer 
-                google={this.props.google}
-                currentlySelectedShelter={this.state.currentlySelectedShelter} 
-                filteredShelters={this.state.filteredData}
+              <FilteredShelterList
+                filteredShelters={that.state.filteredData}
+                currentlySelectedShelter={that.state.currentlySelectedShelter}
                 selectShelter={function (address) {
                   that.setState({ currentlySelectedShelter: address });
                 }}
-                // selectShelter={function (index, address) {
-                //   let tempData = that.state.filteredData;
-                //   let shuffledFilteredData = tempData.slice(index, index + 1);
-                //   tempData.splice(index, 1);
-                //   shuffledFilteredData.push(...tempData);
-                //   that.setState({ currentlySelectedShelter: address, currentlySelectedIndex: index, filteredData: shuffledFilteredData });
-                // }} 
-                />
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <MapContainer
+                google={that.props.google}
+                currentlySelectedShelter={that.state.currentlySelectedShelter}
+                filteredShelters={that.state.filteredData}
+                selectShelter={function (address) {
+                  that.setState({ currentlySelectedShelter: address });
+                }}
+              />
             </Col>
           </Row>
         </Grid>
